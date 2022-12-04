@@ -2,9 +2,8 @@ with open("day4input.txt", "r") as file:
     for line in file:
         if line != "\n":
             elfs = line.split(",")
-            elf1 = [i for i in range(int(line[0]):int(line[2]) + 1)]
-            comp1 = set(line[: len(line) // 2])  # O(n) complexity
-            comp2 = set(line[len(line) // 2 :])  # O(n) complexity
+            elf1 = set(range(int(elfs[0][0]), int(elfs[0][2]) + 1))
+            elf2 = set(range(int(elfs[1][0]), int(elfs[1][2]) + 1))
             common_element = comp1.intersection(comp2)
             for elem in common_element:  # O(1) because loop will only run 1 time
                 if ord(elem) > 96:  # if it's a lowercase letter
