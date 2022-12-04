@@ -1,15 +1,15 @@
+total_errors = 0
+
 with open("day4input.txt", "r") as file:
     for line in file:
         if line != "\n":
-            elfs = line.split(",")
-            elf1 = set(range(int(elfs[0][0]), int(elfs[0][2]) + 1))
-            elf2 = set(range(int(elfs[1][0]), int(elfs[1][2]) + 1))
-            common_element = comp1.intersection(comp2)
-            for elem in common_element:  # O(1) because loop will only run 1 time
-                if ord(elem) > 96:  # if it's a lowercase letter
-                    priority_total += ord(elem) - ord("a") + 1
-                else:  # uppercase letter
-                    priority_total += ord(elem) - ord("A") + 27
-                break
+            elfs = line.strip().split(",")
+            elfs_final = [elf.split("-") for elf in elfs]
+            elf1 = set(range(int(elfs_final[0][0]), int(elfs_final[0][1]) + 1))
+            elf2 = set(range(int(elfs_final[1][0]), int(elfs_final[1][1]) + 1))
+            elf1_common = elf1.intersection(elf2)
+            elf2_common = elf2.intersection(elf1)
+            if len(elf1_common) == len(elf2) or len(elf2_common) == len(elf1):
+                total_errors += 1
 
-print(priority_total)
+print(total_errors)
