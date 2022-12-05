@@ -48,8 +48,13 @@ with open("day5input.txt", "r") as file:
             break
         stacks.append(line.strip())
     i = 1
-    schema = []
+    schema = [Queue() for i in range((len(stacks[0]) // 4) + 1)]
     for stack in stacks:
         if i < len(stack):
             if stack[i] != " ":
-
+                print(stack[i])
+                schema[i // len(schema)].enqueue(stack[i])
+                print(schema[i // len(schema)].front())
+            i += 4
+        else:
+            break
