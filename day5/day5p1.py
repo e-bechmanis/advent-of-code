@@ -1,5 +1,3 @@
-import math
-
 # This class represents a queue. I will be pushing items to the back of the queue and popping them from the front
 class Queue:
     def __init__(self, capacity=10):
@@ -43,18 +41,29 @@ class Queue:
 
 with open("day5input.txt", "r") as file:
     stacks = []
+    instructions = []
+
     for line in file:
         if line == "\n":
             break
         stacks.append(line.strip())
-    i = 1
+
+    # Making sure the schema outlined in input file is transformed into queues
     schema = [Queue() for i in range((len(stacks[0]) // 4) + 1)]
     for stack in stacks:
-        if i < len(stack):
+        i = 1
+        j = 0
+        while i < len(stack):
             if stack[i] != " ":
-                print(stack[i])
-                schema[i // len(schema)].enqueue(stack[i])
-                print(schema[i // len(schema)].front())
+                schema[j].enqueue(stack[i])
             i += 4
-        else:
-            break
+            j += 1
+
+    # Reading instructions into array
+    for line in file:
+        temp = line.strip().replace("move ", "").split(" from ")
+        temp2 = [str.split(" to ") for str in temp]
+        instructions.append(temp2[0] + temp2[1])
+
+    # Making moves
+    for instruction in instructions:
